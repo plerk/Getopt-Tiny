@@ -2,7 +2,7 @@
 package Getopt::Tiny;
 
 use vars qw($VERSION);
-$VERSION = 1.01;
+$VERSION = 1.02;
 
 require Exporter;
 @ISA = qw(Exporter);
@@ -15,7 +15,7 @@ $usageHandle = 'STDERR';
 
 sub getopt
 {
-	my ($avref, $flagref, $switchref) = @_;
+	my ($avref, $flagref, $switchref, $remainder) = @_;
 	unless (defined($avref)) {
 		$avref = \@::ARGV;
 		$flagref = \%::flags;
@@ -25,7 +25,11 @@ sub getopt
 	while (@$avref) {
 		$_ = shift @$avref;
 		unless (/^-(no)?(.+)$/) {
-			callusage($_, $flagref, $switchref);
+			if ($remainder) {
+				unshift(@$avref, $_);
+				return;
+			}
+			callusage($_, $flagref, $switchref, $remainder);
 			return;
 		}
 		if (@$avref) {
@@ -43,7 +47,7 @@ sub getopt
 						if ($v =~ /^(.*)=(.*)/) {
 							$flagref->{$f}->{$1} = $2;
 						} else {
-							callusage("$_ $v", $flagref, $switchref);
+							callusage("$_ $v", $flagref, $switchref, $remainder);
 						}
 						last unless @$avref && $avref->[0] =~ /^[^-].*=/;
 					} 
@@ -58,21 +62,21 @@ sub getopt
 #				if (@$avref) {
 #					$switchref->{$2}->{shift @$avref} = ! $1;
 #				} else {
-#					callusage($_, $flagref, $switchref);
+#					callusage($_, $flagref, $switchref, $remainder);
 #				}
 #			} else {
 				${$switchref->{$2}} = ! $1;
 #			}
 			next;
 		}
-		callusage($_, $flagref, $switchref);
+		callusage($_, $flagref, $switchref, $remainder);
 		return;
 	}
 }
 
 sub callusage
 {
-	my ($arg, $flagref, $switchref) = @_;
+	my ($arg, $flagref, $switchref, $remainder) = @_;
 	my ($package, $filename) = (caller(1))[0,1];
 
 	{
@@ -86,7 +90,9 @@ sub callusage
 	my $o = select($usageHandle || 'STDERR');
 
 	print "$0: unknown option '$arg'\n";
-	print "Usage: $0 [flags] [switches]\n";
+
+	$remainder = 'args' if $remainder > 0;
+	print "Usage: $0 [flags] [switches] $remainder\n";
 
 	usage($filename, $flagref, $switchref);
 

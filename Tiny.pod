@@ -23,8 +23,8 @@ Getopt::Tiny - yet another command line argument parsing module
 	}
 	# end usage info
 
-	getopt(\@ARGV, \%flags, \%switches);
-	Getopt::Tiny::usage(__FILE__, \%flags, \%switches);
+	getopt(\@ARGV, \%flags, \%switches, $what_comes_after);
+	Getopt::Tiny::usage(__FILE__, \%flags, \%switches, 'files');
 
 B<or>
 
@@ -64,6 +64,13 @@ can default them like getopt().
 
 If a usage function is provided, it will be called with one parameter:
 the argument that didn't parse.
+
+Getopt::Tiny can be used in situation where it is expected to parse
+the entire command line and in situations where there will be command
+line args left over.  When Getopt::Tiny is expected to parse the
+whole command line, do not include a forth argument to getopt().  When
+it is expected that there will be stuff left over, pass a description
+of what should be left over as the forth argument to getopt().
 
 =head1 ARGUMENT TYPES
 
@@ -110,7 +117,9 @@ that the flags and switches are as above.
 
 =head1 COPYRIGHT
 
-Copyright (C) 1998, David Muir Sharnoff.   All rights reserved.
-License hearby granted for anyone to use this module at their own risk.   
-Please feed useful changes back to muir@idiom.com.
+Copyright (C) 1998, 2002, David Muir Sharnoff.   This modules
+licensed under the terms of The Artistic License as found at
+http://www.opensource.org/licenses/artistic-license.php.  The
+optional aggregation clause is in effect.
+
 
