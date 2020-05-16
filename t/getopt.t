@@ -73,17 +73,19 @@ getopt([ 'foobar' ], \%flags, \%switches);
 
 undef &usage;
 
-$Getopt::Tiny::usageHandle = 'STDOUT';
+open WR, '>usage.txt';
+$Getopt::Tiny::usageHandle = *WR;
+getopt([ 'foobar' ], \%flags, \%switches);
+close WR;
 
-open(USAGE, "-|") or do {
-	getopt([ 'foobar' ], \%flags, \%switches);
-	exit(0);
-};
-while(<USAGE>) {
+open RD, '<usage.txt';
+while(<RD>) {
 	if (/cn (\d+)/) {
 		print "ok $1\n";
 	}
 }
+close RD;
+unlink 'usage.txt';
 
 print $archive[0] eq '10'	? "ok 25\n" : "not ok 25\n";
 print $months{August} eq '9'	? "ok 26\n" : "not ok 26\n";
