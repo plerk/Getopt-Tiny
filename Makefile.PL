@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
 	'NAME' => 'Getopt::Tiny',
 	'DISTNAME' => 'Getopt-Tiny',
-	'VERSION_FROM' => 'Tiny.pm',
+	'VERSION_FROM' => 'lib/Getopt/Tiny.pm',
 	($] >= 5.005 ?
 	    ('ABSTRACT' => 'Parse arguments with very little code',
 	     'AUTHOR'	=> 'David Muir Sharnoff <muir@idiom.com>') : ()),
@@ -19,8 +19,8 @@ sub postamble {
 
 pm_to_blib: README
 
-README: Tiny.pod
-\tpod2text Tiny.pod >README
+README: lib/Getopt/Tiny.pod
+\tpod2text lib/Getopt/Tiny.pod >README
 
 END_OF_POSTAMBLE
 }

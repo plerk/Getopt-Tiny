@@ -1,7 +1,9 @@
-Tiny.pm
-Tiny.pod
+.github/workflows/macos.yml
+.github/workflows/windows.yml
+Changes
+lib/Getopt/Tiny.pm
+lib/Getopt/Tiny.pod
 Makefile.PL
-MANIFEST
+MANIFEST			This list of files
 README
-CHANGELOG
 t/getopt.t
