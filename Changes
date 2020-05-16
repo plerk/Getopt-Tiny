@@ -1,0 +1,8 @@
+Revision history for Getopt-Tiny
+
+1.02      2002-10-12
+  - Added $what_comes_after flag.
+  - Changed license terms.
+
+1.01      1999-06-16
+  - First CPAN release.

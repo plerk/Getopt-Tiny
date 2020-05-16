@@ -73,38 +73,38 @@ ARGUMENT TYPES
 
     switches                        Switches are either on or off. In the
                                     example in the synopsis, the variable
-                                    $flag will be respectively set to `1' or
-                                    `0' if `-flagx' or `-noflagx' appears in
-                                    the argument list .
+                                    $flag will be respectively set to 1 or 0
+                                    if "-flagx" or "-noflagx" appears in the
+                                    argument list .
 
     parameter                       Parameters have values. In the example
                                     above, the $arg variable will be set to
-                                    whatever follows `-argx' in the argument
+                                    whatever follows "-argx" in the argument
                                     list.
 
     list                            List flags can have multiple values. If
                                     present, they will have at least one
                                     value. In the example above, if the
-                                    argument list containted `qw(-listx a b
-                                    c -listx -d e -argx foo)', the array
-                                    @list would end up with a value of `qw(a
-                                    b c -d e)'.
+                                    argument list containted "qw(-listx a b
+                                    c -listx -d e -argx foo)", the array
+                                    @list would end up with a value of "qw(a
+                                    b c -d e)".
 
     hash                            Hashes have multiple key-value pairs. If
                                     present they will have at least one
                                     value. In the exmaple above, if the
-                                    argument list containted `qw(-hashx a=b
-                                    c=d -hashx -e=f -argx bar)', the hash
-                                    %hash would end up with a value of `(a
-                                    => b, c => d, -e => f)'.
+                                    argument list containted "qw(-hashx a=b
+                                    c=d -hashx -e=f -argx bar)", the hash
+                                    %hash would end up with a value of "(a
+                                    => b, c => d, -e => f)".
 
 DEFAULT PARAMETERS
     If no arguments are given to getopt() then it assumes that the argument
-    list to parse is `\@ARGV' and that the flags and switch references are
-    `\%::flags' and `\%::switches' respectively.
+    list to parse is "\@ARGV" and that the flags and switch references are
+    "\%::flags" and "\%::switches" respectively.
 
     Likewise, if no arguments are given to usage() then it assumes that
-    filename to look for information in is `(caller(0))[1]' and that the
+    filename to look for information in is "(caller(0))[1]" and that the
     flags and switches are as above.
 
 COPYRIGHT
